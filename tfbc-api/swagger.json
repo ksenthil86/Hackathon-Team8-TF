@@ -110,6 +110,66 @@
                 }
             }
         },
+        "/requestTrade": {
+            "post": {
+                
+                "summary": "Request LC",
+                "description": "Request LC",
+                "operationId": "requestLC",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "TA object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TA"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/acceptTrade": {
+            "post": {
+                
+                "summary": "Request LC",
+                "description": "Request LC",
+                "operationId": "requestLC",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "TA object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TA"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
         "/getLC": {
             "post": {
                 
@@ -190,6 +250,10 @@
                 "lcId": {
                     "type": "string",
                     "description": "LC ID"
+                },                
+                "expiryDate": {
+                    "type": "string",
+                    "description": "LC Expiry date"
                 },
                 "buyer": {
                     "type": "string",
@@ -203,13 +267,26 @@
                     "type": "string",
                     "description": "Seller ID"
                 },
-                "expiryDate": {
-                    "type": "string",
-                    "description": "LC Expiry date"
-                },
                 "amount": {
                     "type": "string",
                     "description": "LC Amount"
+                }
+            }
+        },
+        "TA": {
+            "type": "object",
+            "properties": {
+                "taId": {
+                    "type": "string",
+                    "description": "TA ID"
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "TA Amount"
+                },
+                "goods": {
+                    "type": "string",
+                    "description": "TA Goods"
                 }
             }
         },
@@ -217,6 +294,19 @@
             "type": "object",
             "properties": {
                 "lcId": {
+                    "type": "string",
+                    "description": "LC ID"
+                }
+            }
+        },
+        "TALCID": {
+            "type": "object",
+            "properties": {
+                 "taId": {
+                    "type": "string",
+                    "description": "TA ID"
+                },
+                 "lcId": {
                     "type": "string",
                     "description": "LC ID"
                 }
