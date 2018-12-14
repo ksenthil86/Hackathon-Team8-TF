@@ -40,16 +40,18 @@ type SmartContract struct {
 
 // Define the trade agreement
 type TradeAgreement struct {
-	TAId 			string    `json:"tradeAgreementId"`
-	Amount		int				`json:"amount"`
+	TAId 			string    	`json:"tradeAgreementId"`
+	Amount			int		`json:"amount"`
 	Goods			string		`json:"Goods"`
-	Status		string		`json:"status"` //REQUESTED,ACCEPTED,SHIPPED,GOODS RECEIVED,PAYMENT REQUESTED,PAYMENT DONE
+	Status			string		`json:"status"` //REQUESTED,ACCEPTED,SHIPPED,GOODS RECEIVED,PAYMENT REQUESTED,PAYMENT DONE
 }
 // Define the letter of credit
 type LetterOfCredit struct {
 	LCId			string		`json:"id"`
-	ExpirationDate		string		`json:"expirationDate"`
-	Beneficiary		string		`json:"beneficiary"`
+	ExpiryDate		string		`json:"expiryDate"`
+	Buyer    		string   	`json:"buyer"`
+	Bank			string		`json:"bank"`
+	Seller			string		`json:"seller"`
 	Amount			int		`json:"amount"`
 	Status			string		`json:"status"` //REQUESTED,ISSUED,ACCEPTED
 }
@@ -153,7 +155,9 @@ func (s *SmartContract) requestLC(APIstub shim.ChaincodeStubInterface, args []st
 	tradeAgreementId := args[0]
 	LCId := args[1]
 	expirationDate := args[2]
-	beneficiary := args[3]
+	buyer := args[3]
+	bank := args[4]
+	seller := args[5]
 
 	tradeAgreementBytes, err = APIstub.GetState(tradeAgreementId)
 	if err != nil {
@@ -169,7 +173,7 @@ func (s *SmartContract) requestLC(APIstub shim.ChaincodeStubInterface, args []st
 		return shim.Error("Trade has not been ACCEPTED")
 	}
 
-	letterOfCredit = LetterOfCredit{LCId, expirationDate, beneficiary, tradeAgreement.Amount, "REQUESTED"}
+	letterOfCredit = LetterOfCredit{LCId: LCId, ExpiryDate: expirationDate, Buyer: buyer, Bank: bank, Seller: seller , Amount: tradeAgreement.Amount, Status: "REQUESTED"}
 	letterOfCreditBytes, err = json.Marshal(letterOfCredit)
 	if err != nil {
 		return shim.Error("Error marshaling letter of credit structure")
