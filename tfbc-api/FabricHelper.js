@@ -1195,7 +1195,7 @@ function makePayment(req, res) {
 		// changeCarOwner chaincode function - requires 2 args , ex: args: ['CAR10', 'Dave'],
 		// must send the proposal to endorsing peers
 		var request = {chaincodeId: 'tfbccc',
-	fcn: 'issueLC',
+	fcn: 'makePayment',
 	args: [req.body.taId,req.body.lcId],
 	chainId: 'tfbcchannel',
 	txId: tx_id};
@@ -1372,6 +1372,11 @@ let tfbc = {
 	requestLC: requestLC,
 	issueLC: issueLC,
 	acceptLC: acceptLC,
+	requestTrade: requestTrade,
+	acceptTrade: acceptTrade,
+	sendShipment: sendShipment,
+	requestPayment: requestPayment,
+	makePayment: makePayment,
 	getLC: getLC,
 	getLCHistory: getLCHistory
 }
