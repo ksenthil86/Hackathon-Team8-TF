@@ -31,7 +31,7 @@ import (
 	"strconv"
 	"bytes"
 	"time"
-	
+
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	sc "github.com/hyperledger/fabric/protos/peer"
 )
@@ -100,9 +100,9 @@ func (s *SmartContract) requestTrade(APIstub shim.ChaincodeStubInterface,args []
 	if err != nil {
 		return shim.Error("No Amount")
 	}
+	goods := args[2]
 
-
-	TradeAgreement := TradeAgreement{TAId: tradeAgreementId, Amount: Amount, Goods: args[2], Status: "REQUESTED"}
+	TradeAgreement := TradeAgreement{TAId: tradeAgreementId, Amount: Amount, Goods: goods, Status: "REQUESTED"}
 	tradeAgreementBytes, err := json.Marshal(TradeAgreement)
 
   APIstub.PutState(tradeAgreementId,tradeAgreementBytes)

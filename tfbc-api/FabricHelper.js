@@ -79,7 +79,7 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path
 	// must send the proposal to endorsing peers
 	var request = {chaincodeId: 'tfbccc',
 		fcn: 'requestLC',
-		args: [req.body.lcId, req.body.expiryDate, req.body.buyer, req.body.bank, req.body.seller, req.body.amount],
+		args: [req.body.taId, req.body.lcId, req.body.expiryDate, req.body.buyer, req.body.bank, req.body.seller],
 		chainId: 'tfbcchannel',
 		txId: tx_id};
 
@@ -597,7 +597,7 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path
 	// must send the proposal to endorsing peers
 	var request = {chaincodeId: 'tfbccc',
 		fcn: 'requestTrade',
-		args: [req.body.taId, req.body.amount, req.body.goods, req.body.status],
+		args: [req.body.taId, req.body.amount, req.body.goods],
 		chainId: 'tfbcchannel',
 		txId: tx_id};
 
