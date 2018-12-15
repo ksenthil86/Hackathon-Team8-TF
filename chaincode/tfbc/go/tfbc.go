@@ -214,6 +214,7 @@ func (s *SmartContract) requestLC(APIstub shim.ChaincodeStubInterface, args []st
 																	 Amount: amount,
 																	 Goods: goods,
 																	 GoodsCount: goodsCount,
+																	 Currency: currency,
 																	 Status: "REQUESTED" }
 
 	letterOfCreditBytes, err = json.Marshal(letterOfCredit)
