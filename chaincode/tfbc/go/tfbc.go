@@ -192,7 +192,7 @@ func (s *SmartContract) requestLC(APIstub shim.ChaincodeStubInterface, args []st
 func (s *SmartContract) issueLC(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
 	var letterOfCreditBytes []byte
-	var letterOfCredit LetterOfCredit
+	var letterOfCredit *LetterOfCredit
 	var err error
 
 	LCId := args[0]
@@ -228,7 +228,7 @@ func (s *SmartContract) issueLC(APIstub shim.ChaincodeStubInterface, args []stri
 func (s *SmartContract) acceptLC(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
 	var letterOfCreditBytes []byte
-	var letterOfCredit LetterOfCredit
+	var letterOfCredit *LetterOfCredit
         var err error
 
 	LCId := args[0]
