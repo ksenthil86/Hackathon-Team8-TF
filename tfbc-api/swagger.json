@@ -340,7 +340,7 @@
               "taId": {
                   "type": "string",
                   "description": "TA ID"
-              },
+                },
                 "lcId": {
                     "type": "string",
                     "description": "LC ID"
@@ -360,7 +360,7 @@
                 "seller": {
                     "type": "string",
                     "description": "Seller ID"
-                },
+                }
             }
         },
         "TA": {
