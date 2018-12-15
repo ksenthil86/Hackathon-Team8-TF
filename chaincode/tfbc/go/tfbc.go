@@ -192,7 +192,7 @@ func (s *SmartContract) requestLC(APIstub shim.ChaincodeStubInterface, args []st
 func (s *SmartContract) issueLC(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
 	var letterOfCreditBytes []byte
-	var letterOfCredit *LetterOfCredit
+	var letterOfCredit LetterOfCredit
 	var err error
 
 	LCId := args[0]
@@ -210,25 +210,26 @@ func (s *SmartContract) issueLC(APIstub shim.ChaincodeStubInterface, args []stri
 		return shim.Error("Letter of Credit Not Requested")
 	}else if letterOfCredit.Status == "ACCEPTED" {
 		return shim.Error("Letter of Credit Already Accepted")
-
-	letterOfCredit.Status = "ISSUED"
-	letterOfCreditBytes, err = json.Marshal(letterOfCredit)
-	if err != nil {
-		return shim.Error("Error marshaling letter of credit structure")
+	}else{
+		letterOfCredit.Status = "ISSUED"
+		letterOfCreditBytes, err = json.Marshal(letterOfCredit)
+		if err != nil {
+			return shim.Error("Error marshaling letter of credit structure")
+		}
 	}
 	err = APIstub.PutState(LCId, letterOfCreditBytes)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 	fmt.Printf("Letter of Credit %s ISSUED\n", LCId)
-}
+
 	return shim.Success(nil)
 }
 
 func (s *SmartContract) acceptLC(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
 	var letterOfCreditBytes []byte
-	var letterOfCredit *LetterOfCredit
+	var letterOfCredit LetterOfCredit
         var err error
 
 	LCId := args[0]
