@@ -342,9 +342,14 @@ func (s *SmartContract) sendShipment(APIstub shim.ChaincodeStubInterface, args [
 		tradeAgreementBytes, err = json.Marshal(tradeAgreement)
 		if err != nil {
 		return shim.Error("Error marshaling trade agreement structure")
-	}
+		}
 
-	fmt.Printf("Shipment Status for TradeAgreement %s set to %s\n",tradeAgreementId,shipmentStatus)
+		err = APIstub.PutState(tradeAgreementId, tradeAgreementBytes)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		fmt.Printf("Shipment Status for TradeAgreement %s set to %s\n",tradeAgreementId,shipmentStatus)
 }
 	return shim.Success(nil)
 
@@ -374,7 +379,14 @@ func (s *SmartContract) receiveShipment(APIstub shim.ChaincodeStubInterface, arg
 			if err != nil {
 				return shim.Error("Error marshaling trade agreement structure")
 			}
+
+			err = APIstub.PutState(tradeAgreementId, tradeAgreementBytes)
+			if err != nil {
+				return shim.Error(err.Error())
+			}
+
 			fmt.Printf("Shipment Status for TradeAgreement %s set to %s\n",tradeAgreementId,shipmentStatus)
+
 	}else{
 			return shim.Error("Goods not yet shipped")
 	}
@@ -422,6 +434,11 @@ func (s *SmartContract) requestPayment(APIstub shim.ChaincodeStubInterface, args
 		return shim.Error("Error marshaling trade agreement structure")
 		}
 
+		err = APIstub.PutState(tradeAgreementId, tradeAgreementBytes)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
 		fmt.Printf("Payment Requested for TradeAgreement %s \n",tradeAgreementId)
 	}
 
@@ -466,6 +483,11 @@ func (s *SmartContract) makePayment(APIstub shim.ChaincodeStubInterface, args []
 		tradeAgreementBytes, err = json.Marshal(tradeAgreement)
 		if err != nil {
 		return shim.Error("Error marshaling trade agreement structure")
+		}
+
+		err = APIstub.PutState(tradeAgreementId, tradeAgreementBytes)
+		if err != nil {
+			return shim.Error(err.Error())
 		}
 
 		fmt.Printf("Payment Done for TradeAgreement %s \n",tradeAgreementId)

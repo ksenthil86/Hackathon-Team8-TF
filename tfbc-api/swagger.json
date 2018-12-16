@@ -522,7 +522,7 @@
         "TAID": {
             "type": "object",
             "properties": {
-                "lcId": {
+                "taId": {
                     "type": "string",
                     "description": "TA ID"
                 }
